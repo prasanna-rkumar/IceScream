@@ -1,23 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import IcecreamEditor from './components/IcecreamEditor';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App flex w-full h-screen items-center justify-center bg-purple-500 ">
+      <IcecreamEditor />
     </div>
   );
 }
