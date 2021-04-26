@@ -4,7 +4,7 @@ import randomRange from "../utils/randomRange";
 
 const Sprinkles = () => {
   let sprinkles = [];
-  for (let i = 0; i < 40 ; i++) {
+  for (let i = 0; i < 5 ; i++) {
     sprinkles.push(
       <Sprinkle key={i} i={i} />
     );

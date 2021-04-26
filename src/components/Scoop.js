@@ -19,10 +19,10 @@ const calcY = (scoopIndex) => {
 }
 
 
-const Scoop = styled.div(({ flavor, scoopIndex }) => {
+const Scoop = styled.div(({ flavour, scoopIndex }) => {
   return css`
-    background-color: ${flavor.primary};    
-    border: 6px solid ${flavor.secondary};
+    background-color: ${flavour.primary};    
+    border: 6px solid ${flavour.secondary};
     border-bottom-color: transparent;
     width: 160px;
     height: 160px;
@@ -40,7 +40,7 @@ const Scoop = styled.div(({ flavor, scoopIndex }) => {
         bottom: 0px;
         left: -5px;
         height: 48px;
-        background: ${flavor.primary};
+        background: ${flavour.primary};
         width: 160px;
         border-radius: 100%;
         z-index: ${4 - scoopIndex + 1};
