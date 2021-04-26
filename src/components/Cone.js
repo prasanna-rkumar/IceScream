@@ -1,13 +1,28 @@
-import styled from "styled-components";
-
-const Cone = styled.div`
-  margin-top: -40px;
-  height: 0px;
-  width: 0px;
-  border-right: 70px solid transparent;
-  border-left: 70px solid transparent;
-  border-top: 180px solid #FFD685;
-  z-index: 5;
-`;
-
-export default Cone;
+export default function Cone() {
+  return (
+    <svg style={{
+      marginTop: -40
+    }} height="204" width="150">
+      <polygon
+        points="4,0 146,4 75,200"
+        style={{
+          fill: "bisque",
+          stroke: "tan",
+          strokeWidth: 4,
+        }}
+      />
+      {[0, 0, 0].map((_, index) => (
+        <line x1={38 * (index + 1)} y1="3" x2="75" y2="200" style={{
+          stroke: "tan",
+          strokeWidth: 4,
+        }} />
+      ))}
+      {[0, 0, 0, 0].map((_, index) => (
+        <line x1={16 + index * 16} y1={38 * (index + 1)} x2={150 - 16 - index * 16} y2={38 * (index + 1)} style={{
+          stroke: "tan",
+          strokeWidth: 4,
+        }} />
+      ))}
+    </svg>
+  )
+};

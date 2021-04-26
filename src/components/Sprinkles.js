@@ -4,7 +4,7 @@ import randomRange from "../utils/randomRange";
 
 const Sprinkles = () => {
   let sprinkles = [];
-  for (let i = 0; i < 25 ; i++) {
+  for (let i = 0; i < 40 ; i++) {
     sprinkles.push(
       <Sprinkle key={i} i={i} />
     );
@@ -25,7 +25,7 @@ const Sprinkle = styled.div`
   border-radius: 20px;
   ${props => props.i !== undefined && css`
     background-color: ${SPRINKLE_COLORS[randomRange(0, 2)]};
-    top: ${appendPercentage(randomRange(0, 100))};
+    top: ${appendPercentage(randomRange(0, 75))};
     left: ${appendPercentage(randomRange(0, 100))};
     transform: rotateZ(${appendDegree(randomRange(0, 180))});
   `}

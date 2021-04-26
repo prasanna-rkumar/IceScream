@@ -1,12 +1,23 @@
 const FLAVORS = {
   strawberry: {
-    primary: '#E77DA3',
+    primary: '#FC9FC7',
+    secondary: '#EB75A8',
   },
   chocolate: {
-    primary: '#4B2D2A',
+    primary: '#B38246',
+    secondary: '#876235',
   },
   vanilla: {
-    primary: '#FAF6E3',
+    primary: '#FFF5E0',
+    secondary: '#E6D2AA',
+  },
+  blackCurrent: {
+    primary: '#8C63A7',
+    secondary: '#312B4C',
+  },
+  mint: {
+    primary: '#9BECBE',
+    secondary: '#3EB58B',
   },
 };
 
