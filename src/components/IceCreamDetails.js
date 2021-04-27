@@ -8,6 +8,21 @@ import Scoop from './Scoop';
 import FLAVORS from '../constants/FLAVORS';
 import calculateTotal from '../utils/calculateTotal'
 import TOPPINGS from '../constants/TOPPINGS';
+import addToCart from '../firebase/dbhelpers/addToCart';
+
+export const getScoopCounts = (scoops) => {
+  const temp = {};
+
+  scoops.forEach(({ icecream_flavour: scoop }) => {
+    if (temp.hasOwnProperty(scoop.flavour)) {
+      temp[scoop.flavour] += 1;
+    } else {
+      temp[scoop.flavour] = 1;
+    }
+  })
+
+  return temp;
+};
 
 const IceCreamDetails = () => {
   const [scoopCounts, setScoopCounts] = useState({});
@@ -22,22 +37,11 @@ const IceCreamDetails = () => {
     if (!loading && !error && data) {
       const { scoops } = data.preset_Icecream;
 
-      const temp = {};
-      setScoopCounts(temp);
-
-      scoops.forEach(({ icecream_flavour: scoop }) => {
-        if (temp.hasOwnProperty(scoop.flavour)) {
-          temp[scoop.flavour] += 1;
-        } else {
-          temp[scoop.flavour] = 1;
-        }
-      })
-
-      setScoopCounts({ ...temp });
+      setScoopCounts({ ...getScoopCounts(scoops) });
     }
   }, [error, loading, data]);
 
-  if (loading) return ('loading...');
+  if (loading && data === undefined) return ('loading...');
   if (error) return ('error');
 
   const { nickName, toppings } = data.preset_Icecream;
@@ -59,7 +63,11 @@ const IceCreamDetails = () => {
               <span className="text-lg font-semibold text-white text-opacity-80">
                 ₹{calculateTotal(data.preset_Icecream)}
               </span>
-              <button className="p-2 px-3.5 text-sm font-medium uppercase text-white rounded-lg border-2 shadow-sm hover:shadow-xl">
+              <button onClick={() => {
+                addToCart({
+                  id: data.preset_Icecream.id,
+                })
+              }} style={{color: "lightseagreen"}} className="p-2 px-3.5 text-sm font-medium uppercase bg-white rounded-lg border-2 border-gray-300 shadow-sm hover:shadow-xl">
                 Buy Now
               </button>
             </div>
