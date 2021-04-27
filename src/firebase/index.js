@@ -24,6 +24,8 @@ const firebaseTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 const firestoreArrayUnion = firebase.firestore.FieldValue.arrayUnion;
 const firestoreArrayRemove = firebase.firestore.FieldValue.arrayRemove;
 
+const firestoreIncrement = firebase.firestore.FieldValue.increment;
+
 const GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 
-export { iceCreamFirestore, iceCreamStorage, iceCreamAuth, firebaseTimestamp, firestoreArrayUnion, firestoreArrayRemove, GoogleAuthProvider };
+export { iceCreamFirestore, iceCreamStorage, iceCreamAuth, firebaseTimestamp, firestoreArrayUnion, firestoreArrayRemove, GoogleAuthProvider, firestoreIncrement };
