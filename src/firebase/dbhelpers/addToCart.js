@@ -1,13 +1,13 @@
 import { firestoreIncrement, iceCreamAuth, iceCreamFirestore } from "..";
 
-const addToCart = async (doc) => {
+const addToCart = async (id) => {
   const cartReference = iceCreamFirestore
     .collection("users")
     .doc(iceCreamAuth.currentUser.uid)
     .collection('cart');
 
   const cartItem = await cartReference
-    .where('id', '==', doc.id)
+    .where('id', '==', id)
     .get();
 
   if (cartItem.docs.length >= 1) {
@@ -16,7 +16,7 @@ const addToCart = async (doc) => {
     })
   } else {
     cartReference.add({
-      ...doc,
+      id: id,
       count: 1
     })
   }

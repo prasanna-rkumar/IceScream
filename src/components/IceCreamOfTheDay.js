@@ -6,9 +6,10 @@ import { Scoops } from "./IcecreamEditor";
 
 const IceCreamOfTheDay = () => {
   const { error, loading, data } = useQuery(iceCreamOfTheDays);
+  
   if (error) return ('error');
   if (loading) return ('loading...');
-  console.log(data.icecreamOfTheDays[0].preset_Icecream)
+
   const presetIcecream = (data.icecreamOfTheDays[0].preset_Icecream)
   const scoopCounts = getScoopCounts(presetIcecream.scoops);
   return (

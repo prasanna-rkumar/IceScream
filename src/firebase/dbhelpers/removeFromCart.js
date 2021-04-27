@@ -1,21 +1,23 @@
 import { firestoreIncrement, iceCreamAuth, iceCreamFirestore } from "..";
 
-const removeFromCart = async (doc) => {
+const removeFromCart = async (id) => {
   const cartReference = iceCreamFirestore
     .collection("users")
     .doc(iceCreamAuth.currentUser.uid)
     .collection('cart');
 
   const cartItem = await cartReference
-    .where('id', '==', doc.id)
+    .where('id', '==', id)
     .get();
 
   if (cartItem.docs.length >= 1) {
-    if (cartItem.docs[0].count > 1) {
+    if (cartItem.docs[0].data().count > 1) {
+      console.log('decremented')
       cartReference.doc(cartItem.docs[0].id).update({
         count: firestoreIncrement(-1)
       })
     } else {
+      console.log('removed')
       cartReference.doc(cartItem.docs[0].id).delete()
     }
   }

@@ -11,7 +11,7 @@ import HomePage from './components/HomePage';
 import IcecreamEditor from './components/IcecreamEditor';
 import IceCreamDetails from './components/IceCreamDetails';
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: 'https://api-ap-northeast-1.graphcms.com/v2/cknxj9gdyotw001yzbc15fjcf/master',
   cache: new InMemoryCache()
 });

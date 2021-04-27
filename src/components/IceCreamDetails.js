@@ -64,10 +64,8 @@ const IceCreamDetails = () => {
                 ₹{calculateTotal(data.preset_Icecream)}
               </span>
               <button onClick={() => {
-                addToCart({
-                  id: data.preset_Icecream.id,
-                })
-              }} style={{color: "lightseagreen"}} className="p-2 px-3.5 text-sm font-medium uppercase bg-white rounded-lg border-2 border-gray-300 shadow-sm hover:shadow-xl">
+                addToCart(data.preset_Icecream.id)
+              }} style={{ color: "lightseagreen" }} className="p-2 px-3.5 text-sm font-medium uppercase bg-white rounded-lg border-2 border-gray-300 shadow-sm hover:shadow-xl">
                 Buy Now
               </button>
             </div>
