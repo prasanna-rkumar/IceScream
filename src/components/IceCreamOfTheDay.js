@@ -6,7 +6,7 @@ import { Scoops } from "./IcecreamEditor";
 
 const IceCreamOfTheDay = () => {
   const { error, loading, data } = useQuery(iceCreamOfTheDays);
-  
+
   if (error) return ('error');
   if (loading) return ('loading...');
 
@@ -25,7 +25,7 @@ const IceCreamOfTheDay = () => {
             {Object.keys(scoopCounts).map((key, index) => {
               return (
                 <div className="col-span-1" key={key}>
-                  <p className="text-purple-300">{scoopCounts[key]} x {key}</p>
+                  <p className="text-purple-300">{scoopCounts[key].count} x {key}</p>
                 </div>
               );
             })}

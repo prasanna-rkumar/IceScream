@@ -1,9 +1,9 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { iceCreamAuth, iceCreamFirestore } from "..";
+import { iceCreamFirestore } from "..";
 import iceCreamsByIds from "../../graphql/queries/icecreamsByIds";
 
-const useCart = () => {
+const useCart = (user) => {
   const [cartItems, setCartItems] = useState([]);
   const [dbCartItems, setDbCartItems] = useState([]);
   const [fetchCartItems, { data, loading, error }] = useLazyQuery(iceCreamsByIds);
@@ -25,7 +25,6 @@ const useCart = () => {
             break;
           }
         }
-        console.log(temp)
         return temp;
       })
     )
@@ -34,10 +33,9 @@ const useCart = () => {
   useEffect(() => {
     const unsub = iceCreamFirestore
       .collection("users")
-      .doc(iceCreamAuth.currentUser?.uid)
+      .doc(user?.uid)
       .collection("cart")
       .onSnapshot((snapshot) => {
-
         const temp = [];
         snapshot.docs.forEach((doc) => {
           temp.push(doc.data())
@@ -50,7 +48,7 @@ const useCart = () => {
         }
       });
     return () => unsub();
-  }, [fetchCartItems]);
+  }, [fetchCartItems, user]);
   return { cartItems };
 };
 

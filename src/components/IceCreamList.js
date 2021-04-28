@@ -1,11 +1,14 @@
 import { useQuery } from '@apollo/client';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import CartContext from '../context/CartContext';
 import iceCreamsList from '../graphql/queries/icecreamsList';
-import calculateTotal from '../utils/calculateTotal';
+import calculatePresetTotal from '../utils/calculatePresetTotal';
 import { Scoops } from './IcecreamEditor';
 
 const IceCreamList = () => {
   const { loading, error, data } = useQuery(iceCreamsList);
+  const { toggleCart, addToCart } = useContext(CartContext);
 
   if (loading) return ('loading...');
   if (error) return ('error');
@@ -28,9 +31,19 @@ const IceCreamList = () => {
                     {presetIcecream.nickName}{' '}
                   </h6>
                   <span className="text-xs relative -top-1.5">({presetIcecream.scoops.length} x Scoops)</span>
-                  <p className="text-white font-semibold">
-                    ₹{calculateTotal(presetIcecream)}
-                  </p>
+                  <div className="flex justify-between">
+                    <p className="text-white font-semibold">
+                      ₹{calculatePresetTotal(presetIcecream)}
+                    </p>
+                    <button onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      addToCart(presetIcecream.id);
+                      toggleCart();
+                    }} className="p-2 uppercase tracking-wide text-xs bg-white rounded text-red-900 font-medium hover:shadow-lg">
+                      Add to cart
+                    </button>
+                  </div>
                 </div>
               </div>
             </Link>

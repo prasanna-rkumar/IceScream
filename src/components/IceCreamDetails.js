@@ -3,22 +3,26 @@ import { useQuery } from '@apollo/client';
 import iceCream from '../graphql/queries/icecream';
 import PageContainer from './PageContainer';
 import IcecreamEditor from './IcecreamEditor';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Scoop from './Scoop';
 import FLAVORS from '../constants/FLAVORS';
-import calculateTotal from '../utils/calculateTotal'
+import calculatePresetTotal from '../utils/calculatePresetTotal'
 import TOPPINGS from '../constants/TOPPINGS';
-import addToCart from '../firebase/dbhelpers/addToCart';
+import CartContext from '../context/CartContext';
 
 export const getScoopCounts = (scoops) => {
   const temp = {};
 
   scoops.forEach(({ icecream_flavour: scoop }) => {
     if (temp.hasOwnProperty(scoop.flavour)) {
-      temp[scoop.flavour] += 1;
+      temp[scoop.flavour].count += 1;
     } else {
-      temp[scoop.flavour] = 1;
+      temp[scoop.flavour] = {
+        count: 1,
+        price: scoop.price
+      };
     }
+    temp[scoop.flavour].price = scoop.price;
   })
 
   return temp;
@@ -26,6 +30,7 @@ export const getScoopCounts = (scoops) => {
 
 const IceCreamDetails = () => {
   const [scoopCounts, setScoopCounts] = useState({});
+  const { addToCart } = useContext(CartContext);
   const { id } = useParams();
   const { error, loading, data } = useQuery(iceCream, {
     variables: {
@@ -61,7 +66,7 @@ const IceCreamDetails = () => {
             </h6>
             <div className="flex gap-0.5 justify-between flex-col sm:flex-row mt-2">
               <span className="text-lg font-semibold text-white text-opacity-80">
-                ₹{calculateTotal(data.preset_Icecream)}
+                ₹{calculatePresetTotal(data.preset_Icecream)}
               </span>
               <button onClick={() => {
                 addToCart(data.preset_Icecream.id)

@@ -1,4 +1,4 @@
-const calculateTotal = ({ scoops, toppings }) => {
+const calculatePresetTotal = ({ scoops, toppings }) => {
   let total = 0;
   scoops.forEach(({ icecream_flavour: scoop }) => {
     total += scoop.price;
@@ -6,7 +6,7 @@ const calculateTotal = ({ scoops, toppings }) => {
   toppings.forEach(({ price }) => {
     total += price;
   })
-  return total;
+  return !isNaN(total) ? total : "";
 }
 
-export default calculateTotal;
+export default calculatePresetTotal;

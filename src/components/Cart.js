@@ -1,16 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../context/CartContext";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { IoMdRemove, IoMdAdd } from 'react-icons/io';
-import useCart from "../firebase/hooks/useCart";
-import calculateTotal from "../utils/calculateTotal";
-import removeFromCart from "../firebase/dbhelpers/removeFromCart";
-import addToCart from "../firebase/dbhelpers/addToCart";
+import calculatePresetTotal from "../utils/calculatePresetTotal";
+import calculateGrandTotal from "../utils/calculateGrandTotal";
 import { getScoopCounts } from "./IceCreamDetails";
+import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
 
 const Cart = () => {
-  const { isCartVisible, toggleCart } = useContext(CartContext);
-  const { cartItems } = useCart();
+  const { cartItems, isCartVisible, toggleCart, addToCart, removeFromCart } = useContext(CartContext);
 
   return (
     <div onClick={() => {
@@ -22,56 +20,121 @@ const Cart = () => {
         <div className="bg-white py-3 mb-3 ">
           <h1 className="text-center text-3xl font-semibold">Cart</h1>
         </div>
-        <ul style={{
-          height: "calc(100vh - 160px)",
-        }} className="px-2">
-          {cartItems.map((cartItem) => {
-            console.log(cartItem)
-            const scoopCounts = getScoopCounts(cartItem.scoops);
-            return (
-              <li className="rounded-lg mb-4 overflow-y-auto bg-white shadow-lg p-2" key={cartItem.id}>
-                <p className="text-xl font-medium">{cartItem.nickName}</p>
-                <div className="pt-1 pb-2 flex flex-col gap-1.5">
-                  {Object.keys(scoopCounts).map((key, index) => {
-                    return (
-                      <div className="flex justify-between items-center" key={key}>
-                        <p className="text-purple-500 uppercase tracking-wide text-xs">{scoopCounts[key]} x {key}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="flex justify-between items-center mt-2">
-                  <div className="flex justify-between items-center w-24 rounded bg-opacity-50 bg-pink-300">
-                    <CartActionButton onClick={() => {
-                      removeFromCart(cartItem.id)
-                    }}>
-                      <IoMdRemove />
-                    </CartActionButton>
-                    <span className="text-lg font-medium">
-                      {cartItem.count}
-                    </span>
-                    <CartActionButton onClick={() => {
-                      addToCart(cartItem.id)
-                    }}>
-                      <IoMdAdd />
-                    </CartActionButton>
-                  </div>
-                  <span className="text-base font-semibold font-sans">
-                    ₹ {calculateTotal(cartItem) * cartItem.count}
-                  </span>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
         <button onClick={() => {
           toggleCart();
         }} className="absolute right-3 top-3">
           <AiOutlineCloseCircle size={26} />
         </button>
+        <ul style={{
+          height: "calc(100vh - 160px)",
+        }} className="px-2 overflow-y-auto">
+          {cartItems.map((cartItem) => {
+            return (
+              <CartItem
+                key={cartItem.id}
+                cartItem={cartItem}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
+              />
+            );
+          })}
+        </ul>
+        <div className="absolute w-full h-20 box-border p-2 px-4 bg-white bottom-0 right-0 text-2xl font-semibold flex justify-between items-center">
+          ₹ {calculateGrandTotal(cartItems)}
+          <button className="p-2 bg-pink-600 hover:shadow-md text-white rounded uppercase tracking-wide text-sm font-medium">
+            Checkout
+          </button>
+        </div>
       </div>
     </div>
   );
+};
+
+const CartItem = ({ cartItem, removeFromCart, addToCart }) => {
+  const scoopCounts = getScoopCounts(cartItem.scoops);
+  return (
+    <li className="rounded-lg mb-4 overflow-y-auto bg-white shadow-lg p-2">
+      <p className="text-xl font-medium">{cartItem.nickName}</p>
+      <div className="pt-1 pb-2 flex flex-col gap-1.5">
+        <Accordian title="Scoops">
+          {Object.keys(scoopCounts).map((key, index) => {
+            return (
+              <div className="flex justify-between items-end py-1" style={{
+                borderBottom: "1px solid lightgray"
+              }} key={key}>
+                <div>
+                  <p className="text-purple-500 uppercase tracking-wide text-xs">{key}</p>
+                  <p className="text-xs my-2">
+                    <span className="px-1 rounded bg-pink-200 border-2 border-pink-400">
+                      {scoopCounts[key].count}
+                    </span> x  ₹{scoopCounts[key].price}
+                  </p>
+                </div>
+                <p>
+                  ₹ {scoopCounts[key].count * scoopCounts[key].price}
+                </p>
+              </div>
+            );
+          })}
+        </Accordian>
+      </div>
+      <div>
+        <Accordian title="Toppings">
+          {cartItem.toppings.map(({ name, price }, index) => {
+            return (
+              <div className="flex justify-between items-end py-1" style={{
+                borderBottom: "1px solid lightgray"
+              }} key={name}>
+                <div>
+                  <p className="text-purple-500 uppercase tracking-wide text-xs">{name}</p>
+                </div>
+                <p>
+                  ₹ {price}
+                </p>
+              </div>
+            );
+          })}
+        </Accordian>
+      </div>
+      <div className="flex justify-between items-center mt-2">
+        <div className="flex justify-between items-center w-24 rounded bg-opacity-50 bg-pink-300">
+          <CartActionButton onClick={() => {
+            removeFromCart(cartItem.id)
+          }}>
+            <IoMdRemove />
+          </CartActionButton>
+          <span className="text-lg font-medium">
+            {cartItem.count}
+          </span>
+          <CartActionButton onClick={() => {
+            addToCart(cartItem.id)
+          }}>
+            <IoMdAdd />
+          </CartActionButton>
+        </div>
+        <span className="text-base font-semibold font-sans">
+          ₹ {calculatePresetTotal(cartItem) * cartItem.count}
+        </span>
+      </div>
+    </li>
+  );
+};
+
+const Accordian = ({ title, children }) => {
+  const [isExpanded, setExpanded] = useState(true);
+  return <div>
+    <button onClick={(e) => {
+      setExpanded((prev) => !prev);
+    }} className="flex justify-between items-center w-full border-gray-300 border-t-2 p-2">
+      <h4 className="text-lg font-medium">{title}</h4>
+      {
+        isExpanded ? <BiUpArrow /> : <BiDownArrow />
+      }
+    </button>
+    <div className={` transform transition-all ${isExpanded ? "block" : "hidden"}`}>
+      {children}
+    </div>
+  </div>
 };
 
 const CartActionButton = ({ onClick, children }) => {

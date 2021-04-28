@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { FaShoppingBag } from "react-icons/fa";
 import Cart from "./Cart";
 import { useContext } from "react";
-import CartContext, { CartProvider } from "../context/CartContext";
+import CartContext from "../context/CartContext";
 
 const NavBar = () => {
   const { toggleCart } = useContext(CartContext);
@@ -30,10 +30,4 @@ const NavBar = () => {
   );
 }
 
-const NavBarWithProvider = () => (
-  <CartProvider>
-    <NavBar />
-  </CartProvider>
-);
-
-export default NavBarWithProvider;
+export default NavBar;
