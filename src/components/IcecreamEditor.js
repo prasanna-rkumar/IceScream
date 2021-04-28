@@ -6,7 +6,6 @@ import cherry from '../assets/cherry.svg'
 import wafer from '../assets/wafer.svg'
 import sprinkles from '../assets/sprinkles.png'
 import WAFERS from "../constants/WAFERS";
-import randomRange from "../utils/randomRange";
 import { useEffect } from "react";
 
 const getIcecreamConfigFromPreset = (presetIcecream) => {
@@ -78,7 +77,7 @@ export function Scoops({ presetIcecream }) {
             zIndex: 3 + index,
             top: (-10 + index * 10) + '%',
             left: `${15 + index * 50}%`,
-            transform: `rotateZ(${(index % 2 === 0 ? '-' : '') + randomRange(15, 30)}deg)`,
+            transform: `rotateZ(${(index % 2 === 0 ? '-' : '') + "25"}deg)`,
           }} src={wafer} alt='wafer' />
         ))
       }

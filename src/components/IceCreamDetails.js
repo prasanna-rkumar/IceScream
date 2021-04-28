@@ -72,7 +72,7 @@ const IceCreamDetails = () => {
                 addToCart(data.preset_Icecream.id);
                 toggleCart();
               }} style={{ color: "lightseagreen" }} className="p-2 px-3.5 text-sm font-medium uppercase bg-white rounded-lg border-2 border-gray-300 shadow-sm hover:shadow-xl">
-                Buy Now
+                Add to cart
               </button>
             </div>
           </div>
