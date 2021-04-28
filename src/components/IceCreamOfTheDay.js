@@ -13,10 +13,10 @@ const IceCreamOfTheDay = () => {
   const presetIcecream = (data.icecreamOfTheDays[0].preset_Icecream)
   const scoopCounts = getScoopCounts(presetIcecream.scoops);
   return (
-    <Link to={`/ice-cream/${presetIcecream.id}/${encodeURI(presetIcecream.nickName)}`}>
-      <div
-        className="bg-purple-800 mx-auto max-w-2xl hover:shadow-lg cursor-pointer mt-5 py-4 px-0 sm:px-4 rounded-2xl"
-      >
+    <div
+      className="bg-purple-800 mx-auto max-w-2xl hover:shadow-lg cursor-pointer mt-5 py-4 px-0 sm:px-4 rounded-2xl"
+    >
+      <Link to={`/ice-cream/${presetIcecream.id}/${encodeURI(presetIcecream.nickName)}`}>
         <h6 className="tracking-wider uppercase text-xs font-bold text-purple-200 invisible sm:visible">Icecream of the Day</h6>
         <div className=" flex flex-col-reverse items-start sm:flex-row">
           <div className="sm:max-w-xs w-full pl-2 mt-6 pt-0.5">
@@ -38,7 +38,8 @@ const IceCreamOfTheDay = () => {
             </div>
           </div>
         </div>
-      </div></Link>
+      </Link>
+    </div>
   );
 }
 
