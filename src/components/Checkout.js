@@ -27,7 +27,8 @@ const Checkout = () => {
               item_id: id,
               count,
             }
-          })
+          }),
+          ...data,
         })
         setTimeout(() => {
           history.replace('/')

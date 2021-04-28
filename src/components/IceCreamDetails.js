@@ -30,7 +30,7 @@ export const getScoopCounts = (scoops) => {
 
 const IceCreamDetails = () => {
   const [scoopCounts, setScoopCounts] = useState({});
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, toggleCart } = useContext(CartContext);
   const { id } = useParams();
   const { error, loading, data } = useQuery(iceCream, {
     variables: {
@@ -69,7 +69,8 @@ const IceCreamDetails = () => {
                 ₹{calculatePresetTotal(data.preset_Icecream)}
               </span>
               <button onClick={() => {
-                addToCart(data.preset_Icecream.id)
+                addToCart(data.preset_Icecream.id);
+                toggleCart();
               }} style={{ color: "lightseagreen" }} className="p-2 px-3.5 text-sm font-medium uppercase bg-white rounded-lg border-2 border-gray-300 shadow-sm hover:shadow-xl">
                 Buy Now
               </button>
@@ -85,7 +86,7 @@ const IceCreamDetails = () => {
                   <div className="h-20 relative flex justify-center">
                     <Scoop className="transform scale-50 sm:scale-75 -top-16" scoopIndex={0} flavour={FLAVORS[key]} />
                   </div>
-                  <p className="text-center">{scoopCounts[key]} x {key}</p>
+                  <p className="text-center">{scoopCounts[key].count} x {key}</p>
                 </div>
               );
             })}
