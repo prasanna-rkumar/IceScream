@@ -2,11 +2,17 @@ import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { iceCreamFirestore } from "..";
 import iceCreamsByIds from "../../graphql/queries/icecreamsByIds";
+import calculateGrandTotal from "../../utils/calculateGrandTotal";
 
 const useCart = (user) => {
   const [cartItems, setCartItems] = useState([]);
+  const [grandTotal, setGrandTotal] = useState(0);
   const [dbCartItems, setDbCartItems] = useState([]);
   const [fetchCartItems, { data, loading, error }] = useLazyQuery(iceCreamsByIds);
+
+  useEffect(() => {
+    setGrandTotal(calculateGrandTotal(cartItems))
+  }, [cartItems]);
 
   useEffect(() => {
     if (dbCartItems.length === 0) {
@@ -49,7 +55,7 @@ const useCart = (user) => {
       });
     return () => unsub();
   }, [fetchCartItems, user]);
-  return { cartItems };
+  return { cartItems, grandTotal };
 };
 
 export default useCart;

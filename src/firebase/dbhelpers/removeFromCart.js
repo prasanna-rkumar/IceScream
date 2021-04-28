@@ -12,12 +12,10 @@ const removeFromCart = async (id) => {
 
   if (cartItem.docs.length >= 1) {
     if (cartItem.docs[0].data().count > 1) {
-      console.log('decremented')
       cartReference.doc(cartItem.docs[0].id).update({
         count: firestoreIncrement(-1)
       })
     } else {
-      console.log('removed')
       cartReference.doc(cartItem.docs[0].id).delete()
     }
   }

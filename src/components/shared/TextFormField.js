@@ -1,21 +1,10 @@
-const TextFormField = ({
-  label,
-  type,
-  placeholder,
-  value,
-  required = false,
-  onChange,
-}) => (
+const TextFormField = (props) => (
   <div className="mb-4 box-border">
     <label className="text-sm text-gray-500 font-medium">
-      {label}
+      {props.label}
       <input
-        required={required}
         className="block mt-2 border-2 border-gray-500 text-black text-base border-opacity-50 rounded w-full h-11 pl-3"
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        {...props}
       />
     </label>
   </div>

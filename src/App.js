@@ -11,6 +11,8 @@ import HomePage from './components/HomePage';
 import IcecreamEditor from './components/IcecreamEditor';
 import IceCreamDetails from './components/IceCreamDetails';
 import { CartProvider } from './context/CartContext';
+import ProtectedRoute from './components/Routes/ProtectedRoute';
+import Checkout from './components/Checkout';
 
 export const client = new ApolloClient({
   uri: 'https://api-ap-northeast-1.graphcms.com/v2/cknxj9gdyotw001yzbc15fjcf/master',
@@ -36,6 +38,7 @@ function App() {
           <Switch>
             <DoNotAllowIfLoggedInRoute path="/login" component={Login} />
             <DoNotAllowIfLoggedInRoute path="/register" component={Register} />
+            <ProtectedRoute path="/checkout" component={Checkout} />
             <Route exact path="/ice-cream/:id/:nickname">
               <IceCreamDetails />
             </Route>

@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   const history = useHistory();
   const [isCartVisible, setCartVisible] = useState(false);
   const [user, loading] = useAuthState(iceCreamAuth);
-  const { cartItems } = useCart(user);
+  const { cartItems, grandTotal } = useCart(user);
 
 
   const addToCart = (id) => {
@@ -42,6 +42,7 @@ export const CartProvider = ({ children }) => {
       addToCart,
       removeFromCart,
       cartItems,
+      grandTotal,
     }}>
       {children}
     </CartContext.Provider>
