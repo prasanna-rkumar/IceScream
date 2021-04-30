@@ -1,4 +1,4 @@
-# IceScream - IceScream is an onlice Icecream ordering concept app.
+# IceScream is an online Icecream ordering concept app.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
