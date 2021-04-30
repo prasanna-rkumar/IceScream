@@ -10,3 +10,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  - [Tailwind CSS](https://tailwindcss.com/).
  - [Styled Components](https://styled-components.com/).
  - [React Hook Form](https://react-hook-form.com/).
+ - [Razorpay Checkout](https://razorpay.com/docs/payment-gateway/web-integration/standard/)
