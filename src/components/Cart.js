@@ -42,10 +42,7 @@ const Cart = () => {
         <div className="absolute w-full h-20 box-border p-2 px-4 bg-white bottom-0 right-0 text-2xl font-semibold flex justify-between items-center">
           ₹ {grandTotal}
           <Link to="/checkout">
-            <button onClick={(e) => {
-              e.preventDefault();
-              toggleCart()
-            }} className="p-2 bg-pink-600 hover:shadow-md text-white rounded uppercase tracking-wide text-sm font-medium">
+            <button className="p-2 bg-pink-600 hover:shadow-md text-white rounded uppercase tracking-wide text-sm font-medium">
               Checkout
             </button>
           </Link>

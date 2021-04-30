@@ -21,19 +21,19 @@ export const client = new ApolloClient({
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-      />
-      <Router>
+    <Router>
+      <ApolloProvider client={client}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+        />
         <CartProvider>
           <Switch>
             <DoNotAllowIfLoggedInRoute path="/login" component={Login} />
@@ -50,8 +50,9 @@ function App() {
             </Route>
           </Switch>
         </CartProvider>
-      </Router>
-    </ApolloProvider>
+
+      </ApolloProvider>
+    </Router>
   );
 }
 
