@@ -7,6 +7,7 @@ const iceCream = gql`
       nickName
       scoops {
         icecream_flavour {
+          id
           flavour
           price
         }
