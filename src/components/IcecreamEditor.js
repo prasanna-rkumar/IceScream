@@ -28,7 +28,10 @@ const getIcecreamConfigFromPreset = (presetIcecream) => {
       ]
     } else if (name === 'Sprinkles') {
       toppings = [
-
+        <>
+          <img alt="sprinkles" src={sprinkles} />
+          <img alt="sprinkles" src={sprinkles} />
+        </>
       ]
     }
   })
@@ -53,7 +56,7 @@ const IcecreamEditor = ({ presetIcecream, hasCone = true }) => {
 export default IcecreamEditor;
 
 export function Scoops({ presetIcecream }) {
-  const [icecreamConfig, seticecreamConfig] = useState({
+  const [icecreamConfig, setIcecreamConfig] = useState({
     scoops: [],
     toppings: [],
     addCherry: false,
@@ -61,12 +64,14 @@ export function Scoops({ presetIcecream }) {
   });
 
   useEffect(() => {
+    console.log(presetIcecream)
     if (presetIcecream !== undefined) {
-      seticecreamConfig({
+      setIcecreamConfig({
         ...getIcecreamConfigFromPreset(presetIcecream)
       });
     }
   }, [presetIcecream]);
+
   return (
     <div className="flex h-56 w-full flex-col-reverse items-center relative">
       {
@@ -89,11 +94,9 @@ export function Scoops({ presetIcecream }) {
             )
           }
           <div className="w-full h-40 relative overflow-hidden rounded-full">
-            <img alt="sprinkles" src={sprinkles} />
-            <img alt="sprinkles" src={sprinkles} />
-            {/* icecreamConfig.toppings.map((topping) => {
-                return topping;
-              }) */}
+            {icecreamConfig.toppings.map((topping) => {
+              return topping;
+            })}
           </div>
         </Scoop>
       ))}

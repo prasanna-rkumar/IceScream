@@ -5,10 +5,11 @@ import { IoMdRemove, IoMdAdd } from 'react-icons/io';
 import calculatePresetTotal from "../utils/calculatePresetTotal";
 import { getScoopCounts } from "./IceCreamDetails";
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, isCartVisible, toggleCart, addToCart, removeFromCart, grandTotal } = useContext(CartContext);
+  const history = useHistory();
 
   return (
     <div onClick={() => {
@@ -41,11 +42,11 @@ const Cart = () => {
         </ul>
         <div className="absolute w-full h-20 box-border p-2 px-4 bg-white bottom-0 right-0 text-2xl font-semibold flex justify-between items-center">
           ₹ {grandTotal}
-          <Link to="/checkout">
-            <button className="p-2 bg-pink-600 hover:shadow-md text-white rounded uppercase tracking-wide text-sm font-medium">
-              Checkout
+          <button disabled={grandTotal < 1} onClick={() => {
+            history.push("/checkout")
+          }} className="p-2 disabled:opacity-50 disabled:cursor-not-allowed bg-pink-600 hover:shadow-md text-white rounded uppercase tracking-wide text-sm font-medium">
+            Checkout
             </button>
-          </Link>
         </div>
       </div>
     </div>

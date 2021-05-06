@@ -7,6 +7,8 @@ module.exports = {
   variants: {
     extend: {
       scale: ['group-hover'],
+      opacity: ['disabled'],
+      cursor: ['disabled']
     },
   },
   plugins: [],
